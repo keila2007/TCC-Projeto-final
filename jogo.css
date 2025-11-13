@@ -1,0 +1,465 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #1a5f7a, #0a2e47);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Orientação para dispositivos móveis */
+        @media (max-width: 768px) and (orientation: portrait) {
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffcc00;
+                font-size: 18px;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            body::after {
+                content: "🔄 Gire seu dispositivo para a posição horizontal para jogar";
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10000;
+                color: #ffcc00;
+                font-size: 18px;
+                text-align: center;
+                background: rgba(0, 0, 0, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                border: 2px solid #ffcc00;
+                max-width: 80%;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Layout para telas maiores e paisagem */
+        @media (min-width: 769px), (orientation: landscape) {
+            .container {
+                max-width: 800px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .header {
+                width: 100%;
+            }
+            
+            .menu {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        /* Layout para telas muito pequenas */
+        @media (max-width: 360px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 16px;
+            }
+            
+            .menu-btn {
+                font-size: 12px;
+                padding: 10px;
+            }
+            
+            .user-name {
+                font-size: 10px;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #8b4513;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #ffcc00;
+            margin-right: 15px;
+            object-fit: cover;
+            background-color: #fff;
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: #ffcc00;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu-btn {
+            background-color: #8b4513;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid #5d2f0a;
+            box-shadow: 0 4px 0 #5d2f0a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-btn:hover {
+            background-color: #a0522d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #5d2f0a;
+        }
+
+        .menu-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #5d2f0a;
+        }
+
+        .menu-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .menu-btn:hover::before {
+            left: 100%;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .chalkboard {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background-color: #2a6234;
+            border: 10px solid #5d4037;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Ajustes responsivos para o quadro */
+        @media (max-width: 768px) {
+            .chalkboard {
+                width: 250px;
+                height: 150px;
+                top: 15%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chalkboard {
+                width: 200px;
+                height: 120px;
+                top: 12%;
+            }
+        }
+
+        .chalkboard::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .math-equation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Ajustes responsivos para a equação */
+        @media (max-width: 768px) {
+            .math-equation {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .math-equation {
+                font-size: 14px;
+            }
+        }
+
+        .pixel-character {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            bottom: 20%;
+        }
+
+        /* Ajustes responsivos para personagens */
+        @media (max-width: 768px) {
+            .pixel-character {
+                width: 60px;
+                height: 80px;
+                bottom: 15%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pixel-character {
+                width: 50px;
+                height: 70px;
+                bottom: 12%;
+            }
+        }
+
+        .character-1 {
+            left: 15%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40"><rect x="8" y="4" width="16" height="20" fill="%234a7c59"/><rect x="12" y="8" width="8" height="4" fill="%23ffcc00"/><rect x="10" y="24" width="4" height="12" fill="%234a7c59"/><rect x="18" y="24" width="4" height="12" fill="%234a7c59"/><rect x="6" y="36" width="6" height="4" fill="%234a7c59"/><rect x="20" y="36" width="6" height="4" fill="%234a7c59"/></svg>');
+        }
+
+        .character-2 {
+            right: 15%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40"><rect x="8" y="4" width="16" height="20" fill="%239c27b0"/><rect x="12" y="8" width="8" height="4" fill="%23ffcc00"/><rect x="10" y="24" width="4" height="12" fill="%239c27b0"/><rect x="18" y="24" width="4" height="12" fill="%239c27b0"/><rect x="6" y="36" width="6" height="4" fill="%239c27b0"/><rect x="20" y="36" width="6" height="4" fill="%239c27b0"/></svg>');
+        }
+
+        /* Ajustes de posição dos personagens para telas menores */
+        @media (max-width: 768px) {
+            .character-1 {
+                left: 10%;
+            }
+            
+            .character-2 {
+                right: 10%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-1 {
+                left: 5%;
+            }
+            
+            .character-2 {
+                right: 5%;
+            }
+        }
+
+        .desk {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background-color: #8b4513;
+            z-index: 1;
+        }
+
+        .desk::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to bottom, #a0522d, #8b4513);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            border: 3px solid #ffcc00;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+        }
+
+        /* Ajustes responsivos para o modal */
+        @media (max-width: 480px) {
+            .modal-content {
+                padding: 15px;
+                margin: 10px;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            color: #ffcc00;
+            font-size: 18px;
+        }
+
+        /* Ajustes de fonte para telas menores */
+        @media (max-width: 480px) {
+            .modal-title {
+                font-size: 16px;
+            }
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .setting-item {
+            margin-bottom: 15px;
+        }
+
+        .setting-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffcc00;
+        }
+
+        .slider {
+            width: 100%;
+            height: 10px;
+            background: #1a252f;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .select {
+            width: 100%;
+            padding: 8px;
+            background-color: #1a252f;
+            color: #fff;
+            border: 1px solid #ffcc00;
+            border-radius: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 10px;
+            color: #aaa;
+        }
+
+        /* Ajustes gerais de responsividade */
+        @media (max-width: 500px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .menu-btn {
+                font-size: 14px;
+                padding: 12px;
+            }
+            
+            .user-name {
+                font-size: 12px;
+            }
+            
+            .user-avatar {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    .user-avatar {
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+}

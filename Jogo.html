@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game - Lobby</title>
+   <link rel="stylesheet" href="jogo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+        <div class="chalkboard">
+            <div class="math-equation">2x + 5 = 15</div>
+        </div>
+        <div class="pixel-character character-1"></div>
+        <div class="pixel-character character-2"></div>
+        <div class="desk"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>MATH Game Education</h1>
+            <div class="user-info">
+               <img id="userAvatar" class="user-avatar" 
+     src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='30' fill='%234a7c59'/><circle cx='30' cy='20' r='10' fill='%23ffcc00'/><path d='M30 40 Q40 55 20 55 Q30 45 30 40' fill='%23ffcc00'/></svg>'" 
+     alt="Avatar">
+
+<!-- input escondido que abre a galeria/câmera -->
+<input type="file" id="avatarInput" accept="image/*" capture="environment" style="display:none;">
+
+                <div id="userName" class="user-name">Keila Souza</div>
+            </div>
+        </div>
+
+        <div class="menu">
+            <button id="startBtn" class="menu-btn">INICIAR JOGO</button>
+            <button id="configBtn" class="menu-btn">CONFIGURAÇÃO</button>
+            <button id="exitBtn" class="menu-btn">SAIR DO JOGO</button>
+        </div>
+
+        <div class="footer">
+            <p>Desenvolvido para o aprendizado de matemática</p>
+        </div>
+    </div>
+
+    <!-- Modal de Configurações -->
+    <div id="configModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">CONFIGURAÇÕES</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="setting-item">
+                <label class="setting-label">Tamanho do Joystick:</label>
+                <input type="range" min="1" max="10" value="5" class="slider" id="joystickSize">
+            </div>
+            <div class="setting-item">
+                <label class="setting-label">Tamanho da Legenda:</label>
+                <input type="range" min="1" max="10" value="5" class="slider" id="captionSize">
+            </div>
+            <div class="setting-item">
+                <label class="setting-label">Idioma:</label>
+                <select class="select" id="language">
+                    <option value="pt">Português</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
+            <button id="saveConfig" class="menu-btn" style="margin-top: 15px;">SALVAR CONFIGURAÇÕES</button>
+        </div>
+    </div>
+</body>
+</html>
