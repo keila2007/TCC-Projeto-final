@@ -1,15 +1,23 @@
+/* Reset e configurações base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  position: relative;              /* importante para o pseudo-elemento */
-  overflow: hidden;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  font-family: 'Press Start 2P', monospace;
 }
 
 /* Cria uma camada só para a imagem de fundo */
 body::before {
   content: "";
-  position: fixed;                 /* cobre a tela toda */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -18,27 +26,49 @@ body::before {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;                      /* fica atrás de todo o conteúdo */
-  transition: filter 0.3s ease;     /* animação suave */
+  z-index: -1;
+  transition: filter 0.3s ease;
 }
 
+/* Container principal responsivo */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-/* Títulos */
+/* Títulos responsivos */
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+
 h1, h2, h3 {
-  font-family: 'Press Start 2P';
+  font-family: 'Press Start 2P', cursive;
   color: yellow;
   text-align: center;
-  text-shadow: 3px 3px black;
-  text-shadow:
-    3px 3px 0px black,   /* sombra dura */
-    6px 6px 8px rgba(0,0,0,0.9); /* sombra suave */
+  text-shadow: 
+    3px 3px 0px black,
+    6px 6px 8px rgba(0,0,0,0.9);
+  margin: 10px 0;
+  line-height: 1.2;
 }
 
-h1 { font-size: 66px; }
-h2 { font-size: 55px; }
-h3 { font-size: 44px; }
+/* Títulos responsivos */
+h1 { 
+  font-size: clamp(28px, 8vw, 66px); 
+}
 
-/* Menu central */
+h2 { 
+  font-size: clamp(24px, 6vw, 55px); 
+}
+
+h3 { 
+  font-size: clamp(20px, 5vw, 44px); 
+}
+
+/* Menu central responsivo */
 .menu-container {
   position: absolute;
   top: 60%;
@@ -48,30 +78,32 @@ h3 { font-size: 44px; }
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  width: 90%;
+  max-width: 500px;
 }
 
-/* Botão cadastre-se */
-/* Centraliza o botão abaixo dos títulos */
+/* Botão cadastre-se responsivo */
 .center-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  margin: 30px auto 40px;
+  padding: 0 20px;
 }
 
-/* Botão em estilo pixel */
+/* Botão em estilo pixel responsivo */
 .btn-pixel {
   background-color: #ffcc00;
   color: black;
-  font-size: 18px;
-  padding: 12px 24px;
+  font-size: clamp(12px, 3vw, 18px);
+  padding: clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px);
   border: 4px solid #000;
   cursor: pointer;
   font-family: 'Press Start 2P', monospace;
   transition: all 0.2s ease;
-  text-decoration: none; /* remove sublinhado do link */
+  text-decoration: none;
   text-align: center;
+  display: inline-block;
 }
 
 .btn-pixel:hover {
@@ -79,12 +111,14 @@ h3 { font-size: 44px; }
   background-color: #ffe603b0;
 }
 
-/* Ícones */
+/* Ícones responsivos */
 .icon-buttons {
   display: flex;
-  gap: 15px;
+  gap: clamp(10px, 3vw, 15px);
   justify-content: center;
   margin-top: 30px;
+  flex-wrap: wrap;
+  padding: 0 20px;
 }
 
 /* Wrapper para posicionar caixa abaixo do ícone */
@@ -96,129 +130,201 @@ h3 { font-size: 44px; }
 }
 
 .icon-btn {
-  font-size: 140px;
-  background: none;        /* remove a caixa cinza */
-  border: none;            /* sem borda */
+  font-size: clamp(60px, 15vw, 140px);
+  background: none;
+  border: none;
   color: white;
-  padding: 15px;
+  padding: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon-btn:hover {
-  transform: scale(1.5);           /* salto */
+  transform: scale(1.3);
 }
 
-
-/* Caixas invisíveis fixas abaixo do ícone */
+/* Caixas de informação responsivas */
 .info-box {
   display: none;
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
   color: white;
   border: 2px solid yellow;
-  padding: 15px;
+  padding: clamp(10px, 2vw, 15px);
   font-family: 'Press Start 2P', monospace;
-  font-size: 12px;
-  width: 200px;
+  font-size: clamp(10px, 2vw, 12px);
+  width: clamp(150px, 40vw, 200px);
   text-align: center;
   z-index: 10;
+  border-radius: 8px;
 }
 
-/* Hambúrguer fixo no canto superior direito */
+/* Hambúrguer estilo pixel amarelo */
 .hamburger {
   position: fixed;
   top: 20px;
   right: 20px;
-  font-size: 30px;
-  color: white;
-  padding: 8px 12px;
+  width: 40px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #ffcc00;
+  border-radius: 4px;
   cursor: pointer;
-  text-align: center;
-  transition: color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px 4px;
   z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #ffcc00;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
 .hamburger:hover {
   transform: scale(1.1);
-  background-color: #444;
+  background: rgba(0, 0, 0, 0.9);
 }
 
-/* Sidebar lateral */
+.hamburger:hover span {
+  background-color: #ffe603;
+}
+
+/* Sidebar com fundo preto transparente */
 .sidebar {
   height: 100%;
   width: 0;
   position: fixed;
   top: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.726); /* cinza mais claro com transparência */
-  border-left: 3px solid #000000; /* borda igual ao tom atual */
+  background-color: rgba(0, 0, 0, 0.9);
+  border-left: 3px solid #ffcc00;
   overflow-x: hidden;
   transition: 0.3s;
-  padding-top: 100px; /* empurra os botões para mais baixo */
-  z-index: 1000;
+  padding-top: 80px;
+  z-index: 999;
 }
-/* Botões dentro da sidebar */
+
+/* Botões dentro da sidebar com bordas redondas */
 .icon-btn-sidebar {
   display: block;
-  width: 80%;
-  margin: 12px auto;
-  padding: 12px;
-  background: #444;
-  border: 2px solid #666;
-  color: #fff;
+  width: 90%;
+  margin: 15px auto;
+  padding: 15px;
+  background: #333;
+  border: 2px solid #ffcc00;
+  border-radius: 25px;
+  color: #ffcc00;
   font-family: 'Press Start 2P', monospace;
+  font-size: clamp(10px, 2.5vw, 12px);
   cursor: pointer;
   text-align: center;
+  transition: all 0.3s ease;
 }
 
 .icon-btn-sidebar:hover {
-  background: #666;
-}
-
-/* Caixas da sidebar iguais às dos ícones */
-.sidebar .info-box {
-  position: relative;   /* diferente do absoluto dos ícones */
-  top: auto;
-  left: auto;
-  transform: none;
-  margin: 8px auto;
-}
-
-.sidebar button:hover {
-  background: #666;
+  background: #ffcc00;
+  color: black;
+  transform: scale(1.05);
 }
 
 /* Inputs escondidos */
 .hidden-input {
   display: none;
   margin: 8px 16px;
-  padding: 6px;
+  padding: 10px;
   width: 80%;
+  border-radius: 10px;
+  border: 1px solid #ffcc00;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .show {
   display: block;
 }
 
-/* Botão hambúrguer fixo */
-.hamburger {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  font-size: 30px;
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  z-index: 1100;
-}
-
 /* Quando a caixa tiver a classe show, ela aparece */
 .info-box.show {
   display: block;
+}
+
+/* Media Queries para diferentes tamanhos de tela */
+@media (max-width: 768px) {
+  .icon-buttons {
+    gap: 8px;
+  }
+  
+  .icon-btn {
+    font-size: clamp(50px, 12vw, 80px);
+  }
+  
+  .hamburger {
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 25px;
+  }
+  
+  .sidebar {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, h2, h3 {
+    line-height: 1.1;
+  }
+  
+  .center-btn {
+    margin: 20px auto 30px;
+  }
+  
+  .icon-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .icon-wrapper {
+    margin: 5px 0;
+  }
+  
+  .hamburger {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 20px;
+  }
+  
+  .hamburger span {
+    height: 2px;
+  }
+}
+
+/* Para telas muito grandes */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1400px;
+  }
+  
+  h1 { font-size: 80px; }
+  h2 { font-size: 65px; }
+  h3 { font-size: 50px; }
+  
+  .icon-btn {
+    font-size: 160px;
+  }
 }
