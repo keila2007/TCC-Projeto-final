@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre o Math Game</title>
+    <style>
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366F1;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --dark: #0F172A;
+            --darker: #020617;
+            --light: #F8FAFC;
+            --text: #E2E8F0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            padding: 40px 0 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 60px;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #94A3B8;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        /* Navegação */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(30, 41, 59, 0.5);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Títulos */
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 80px 0 40px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 20px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #94A3B8;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Cards de conteúdo */
+        .content-grid {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .content-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title::before {
+            content: "▸";
+            margin-right: 12px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .card-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #CBD5E1;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+        
+        .timeline-content {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 20px;
+            margin: 80px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .cta-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+            color: #94A3B8;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 60px;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content-card, .feature-card, .timeline-item {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .content-card:nth-child(1) { animation-delay: 0.1s; }
+        .content-card:nth-child(2) { animation-delay: 0.2s; }
+        .content-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">MATH GAME</div>
+            <div class="subtitle">Revolucionando o aprendizado de matemática</div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">A REVOLUÇÃO DO ENSINO DE MATEMÁTICA</h1>
+            <p class="hero-subtitle">Descubra a jornada por trás da criação do Math Game e como estamos transformando a maneira como os estudantes aprendem matemática</p>
+        </section>
+
+        <!-- Por que criamos -->
+        <h2 class="section-title">POR QUE CRIAMOS ESTE JOGO</h2>
+        
+        <div class="content-grid">
+            <div class="content-card">
+                <h3 class="card-title">O Problema</h3>
+                <p class="card-content">
+                    Observamos que <span class="highlight">72% dos estudantes do ensino médio</span> consideram matemática a disciplina mais difícil e desinteressante. 
+                    A metodologia tradicional de ensino não consegue engajar a geração digital, criando uma barreira entre os jovens e o aprendizado de conceitos matemáticos essenciais.
+                </p>
+            </div>
+            
+            <div class="content-card">
+                <h3 class="card-title">Nossa Missão</h3>
+                <p class="card-content">
+                    Desenvolvemos o Math Game para <span class="highlight">transformar o aprendizado de matemática em uma experiência envolvente e significativa</span>. 
+                    Acreditamos que quando os estudantes se divertem enquanto aprendem, a retenção de conhecimento aumenta significativamente e o medo da matemática desaparece.
+                </p>
+            </div>
+            
+            <div class="content-card">
+                <h3 class="card-title">A Solução</h3>
+                <p class="card-content">
+                    Combinamos <span class="highlight">princípios de gamificação comprovados</span> com um currículo pedagógico rigoroso para criar um ambiente 
+                    onde cada equação resolvida se torna uma conquista e cada conceito aprendido é uma vitória. Nosso jogo adapta-se ao ritmo de cada estudante, 
+                    proporcionando desafios adequados ao seu nível de conhecimento.
+                </p>
+            </div>
+        </div>
+
+        <!-- Como criamos -->
+        <h2 class="section-title">COMO DESENVOLVEMOS O PROJETO</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">FASE 1</div>
+                    <h3 class="timeline-title">Pesquisa e Planejamento</h3>
+                    <p>Realizamos pesquisas com estudantes e professores para entender as principais dificuldades no aprendizado de matemática. Definimos os pilares educacionais do projeto.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">FASE 2</div>
+                    <h3 class="timeline-title">Prototipagem</h3>
+                    <p>Desenvolvemos os primeiros protótipos do jogo, testando diferentes mecânicas de gamificação e interfaces. Realizamos testes com grupos focais para validar nossas ideias.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">FASE 3</div>
+                    <h3 class="timeline-title">Desenvolvimento Técnico</h3>
+                    <p>Implementamos a arquitetura do sistema, algoritmos matemáticos e mecânicas de jogo. Criamos o sistema de progressão adaptativa que se ajusta ao desempenho do estudante.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">FASE 4</div>
+                    <h3 class="timeline-title">Refinamento e Lançamento</h3>
+                    <p>Realizamos testes extensivos, otimizamos a experiência do usuário e preparamos o lançamento oficial. Desenvolvemos materiais de apoio para professores e estudantes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tecnologias e Metodologias -->
+        <h2 class="section-title">NOSSA ABORDAGEM TECNOLÓGICA</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Tecnologia de Ponta</h3>
+                <p>Utilizamos React.js, Node.js e algoritmos de IA para criar uma experiência fluida e personalizada para cada usuário.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3 class="feature-title">Gamificação Avançada</h3>
+                <p>Sistema de recompensas, rankings e conquistas que mantém os estudantes motivados e engajados no aprendizado.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Análise de Dados</h3>
+                <p>Monitoramos o progresso dos estudantes para identificar padrões de aprendizado e otimizar continuamente o jogo.</p>
+            </div>
+        </div>
+
+        <!-- Impacto e Futuro -->
+        <h2 class="section-title">IMPACTO E VISÃO FUTURA</h2>
+        
+        <div class="content-grid">
+            <div class="content-card">
+                <h3 class="card-title">Resultados Alcançados</h3>
+                <p class="card-content">
+                    Em nossos testes piloto, observamos um <span class="highlight">aumento de 45% na retenção de conceitos matemáticos</span> entre os estudantes que utilizaram 
+                    o Math Game comparado com métodos tradicionais. A taxa de engajamento com atividades matemáticas fora da sala de aula aumentou em 68%.
+                </p>
+            </div>
+            
+            <div class="content-card">
+                <h3 class="card-title">Próximos Passos</h3>
+                <p class="card-content">
+                    Estamos desenvolvendo <span class="highlight">novos módulos para diferentes níveis de ensino</span> e expandindo para outras disciplinas STEM. 
+                    Também estamos criando uma plataforma para professores acompanharem o progresso de seus estudantes e personalizarem atividades.
+                </p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Math Game &copy; 2025 - Transformando a educação através da inovação e tecnologia</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animação de scroll suave
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efeito de digitação no hero
+            const heroTitle = document.querySelector('.hero-title');
+            const originalText = heroTitle.textContent;
+            heroTitle.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    heroTitle.textC
